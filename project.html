@@ -1,50 +1,66 @@
-<html><head>
-  import turtle
-turtle.tracer(0,0)            
-turtle.screensize(500,500)  
-turtle.pu()
-turtle.goto(-0,-200)
-turtle.pd()
+<html> 
+<ul>
+<li>J'arrive pas a mettre les tabulations </li>
+    
+<p>import turtle<p>
+<p>turtle.tracer(0,0)            # accélération du tracé<p>
+<p>turtle.screensize(2000,2000)  # taille fenêtre graphique<p>
+<p>turtle.pu()<p>
+<p>turtle.goto(-500,0)<p>
+<p>turtle.pd()<p>
+
+<p>def dessiner(courbe, longueur, angle):    <p>
+   <p> """ réalise une représentation graphique d'une courbe donnée par des chaines de caractères """<p>
+    <p>for caractere in courbe:<p>
+        <p>if caractere == '+': turtle.left(angle)<p>
+        <p>elif caractere == '-': turtle.right(angle)<p>
+        <p>elif caractere in ['F', 'G']: turtle.forward(longueur)<p>
 
 
-def dessiner(courbe, longueur, angle):    
-    #""" réalise une représentation graphique d'une courbe donnée par des chaines de caractères """
-    for caractere in courbe:
-        if caractere == '+': turtle.left(angle)
-        elif caractere == '-': turtle.right(angle)
-        elif caractere == 'F': turtle.forward(longueur)
+<p>#dessiner('F', 50, 60)<p>
 
-def dessine_A(longueur, angle): 
-  Sequence_A = 'FF++FF++FF++F+F++F++F+'
-  dessiner(Sequence_A,longueur,angle)
-
-def dessine_B(longueur, angle):
-  Sequence_B = 'F++FF'
-  dessiner(Sequence_B,longueur,angle)
-
-def Prebienski(counter,longueur, angle):
-  dessine_A(longueur,angle)
-  for i in range(3):
-    if counter>1:
-      Prebienski(counter-1,longueur*0.5,angle)
-  dessine_B(longueur,angle)
-  return counter-1
-
-longueur = 128
-angle = 60
-niter = 5
-
-counter = niter;
-
-if counter >= 0:
-  counter = Prebienski(counter, longueur, angle)
-
-turtle.update()      # accélération du tracé
-turtle.exitonclick() # permet la fermeture de la fenêtre graphique
+<p>def regleKoch(chaine):<p>
+    <p>nouvelleChaine = ''    # on crée une nouvelle chaine de caractères VIDE<p>
+    <p>for lettre in chaine:  # on épelle la chaine de caractères donnée en paramètres<p>
+        <p>if lettre == 'F':  # si dans l'ancienne chaine, il y a un 'F'<p>
+            <p>nouvelleChaine = nouvelleChaine + 'F-G+F+G-F'  # alors, on écrit F+F--F+F dans la nouvelle chaine <p>
+        <p>elif lettre == 'G' :<p>
+            <p>nouvelleChaine = nouvelleChaine + 'GG'  # sinon, on reporte la lettre telle quelle<p>
+        <p>else :<p>
+        	<p>nouvelleChaine = nouvelleChaine + lettre    <p>
+    <p>return nouvelleChaine<p>
 
 
+<p>def courbeKoch(motifInitial, niter):<p>
+    <p>""" <p>
+        <p>appelle niter fois regleKoch pour créer la courbe de Koch<p>
+   <p> """<p>
+    <p>courbe = motifInitial # on part du motif initial donné par l'utilisateur en paramètres<p>
+    <p>for i in range(niter):<p>
+        <p>nouveauMotif = regleKoch(courbe)  # on trouve le nouveau Motif à partir du motif de départ<p>
+        <p>courbe = nouveauMotif # on dit que le nouveau Motif est maintenant le motif de départ<p>
+    <p>return courbe<p>
 
 
 
+<p>#courbe = courbeKoch('F',3)<p>
+<p>#dessiner(courbe,50, 60)<p>
 
-</body></html>
+<p>def flocon(motifInitial, niter):<p>
+    <p>courbe = courbeKoch(motifInitial, niter)<p>
+    <p>flocon = ''<p>
+    <p>for _ in range(3):<p>
+        <p>flocon += courbe<p>
+        <p>flocon += '--' <p>
+    <p>return flocon<p>
+
+<p>longueur = 2<p>
+<p>angle = 60<p>
+<p>niter = 6<p>
+<p>dessiner(courbeKoch('F-G-G', 7), 40, 120)<p>
+
+
+<p>turtle.update()      # accélération du tracé<p>
+<p>turtle.exitonclick() # permet la fermeture de la fenêtre graphique<p>
+    <ul>
+</html> 
